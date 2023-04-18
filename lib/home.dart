@@ -26,22 +26,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:const Text('Sign Up'),
+        title: const Text('Sign Up'),
       ),
       body: Padding(
-        padding:const  EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                decoration:const InputDecoration(labelText: 'Enter Your Name'),
+                decoration: const InputDecoration(labelText: 'Enter Your Name'),
                 validator: (value) {
-                  if (value== null || value.isEmpty) {
+                  if (value == null || value.isEmpty) {
                     return 'Name is required';
-                  } else  {
-                    return 'Invalid name format';
+                  }
+                  if (value.length < 4) {
+                    return 'Too Short';
                   }
                   return null;
                 },
@@ -50,9 +51,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 },
               ),
               TextFormField(
-                decoration:const InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(labelText: 'Email'),
                 validator: (value) {
-                  if (value == null ||value.isEmpty) {
+                  if (value == null || value.isEmpty) {
                     return 'Email is required';
                   } else if (!_emailRegex.hasMatch(value)) {
                     return 'Invalid email format';
@@ -64,13 +65,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 },
               ),
               TextFormField(
-                decoration:const InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
                 validator: (value) {
-                  if (value == null ||value.isEmpty) {
+                  if (value == null || value.isEmpty) {
                     return 'Password is required';
                   } else if (!_passwordRegex.hasMatch(value)) {
-                    return 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number';
+                    return 'Password must be at least 8 characters long and contain at least 1 uppercase letter'
+                        '1 lowercase letter, and one number';
                   }
                   return null;
                 },
@@ -79,15 +81,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 },
               ),
               Padding(
-                padding:const EdgeInsets.symmetric(vertical: 16.0),
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
                   onPressed: _submitForm,
-                  child:const Text('Sign Up'),
+                  child: const Text('Sign Up'),
                 ),
               ),
             ],
           ),
         ),
-     ),
-);}
+      ),
+    );
+  }
 }
